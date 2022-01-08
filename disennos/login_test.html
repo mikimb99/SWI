@@ -12,6 +12,7 @@
     <!-- Favicons -->
 <link rel="icon" href="favicon.ico">
 <meta name="theme-color" content="#7952b3">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -71,6 +72,33 @@ body {
     <link href="login.css" rel="stylesheet">
   </head>
   <body class="text-center">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+    <a class="navbar-brand" href="#">Futkey</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Partidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Equipos</a>
+        </li>
+      </ul>
+      <a class="btn btn-outline-danger" href="#" role="button">Cerrar sesión</a>
+    </div>
+    <a class="btn btn-outline-primary" href="#" role="button">Iniciar Sesión</a>
+    </div>
+
+  </div>      
+  </nav>
+  </header>
 <main class="form-signin border border-light rounded">
   <form method="POST" action="/" class="p-1">
     <h1 class="h1 mb-5 fw-normal">Login</h1>
