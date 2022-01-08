@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" role="navigation">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Futkey</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,34 +8,34 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        <a class="nav-link <%if(position == 'index') {%>active<%}%> " aria-current="page" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Partidos</a>
+                        <a class="nav-link <%if(position == 'partidos') {%>active<%}%>" href="#">Partidos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Equipos</a>
+                        <a class="nav-link <%if(position == 'equipos') {%>active<%}%>" href="#">Equipos</a>
                     </li>
                     
                 </ul>
                 <ul class="navbar-nav">
 <%if (user){%>
                     <li class="dropdown">
-                        <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> Nombre del usuario</a>
+                        <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user"></i> <%= username %></a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Contactar</a></li>    
+                            <li><a class="dropdown-item" href="/contacto">Contactar</a></li>    
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#">Cerrar Sesión</a></li>
+                            <li><a class="dropdown-item text-danger" href="/logout">Cerrar Sesión</a></li>
                         </ul>
                     </li>
 
             
 <%} else {%>
                     <li class="nav-item">
-                        <a class="nav-link text-muted" href="#">Contactar</a>
+                        <a class="nav-link text-muted" href="/contacto">Contactar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-primary" href="#" role="button">Iniciar Sesión</a>
+                        <a class="btn btn-outline-primary" href="/login" role="button">Iniciar Sesión</a>
                     </li>
 <%}%>
             </ul>

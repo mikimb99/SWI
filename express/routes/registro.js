@@ -25,7 +25,7 @@ router.post('/', function(req, res){
 	  			res.redirect('back');
 	  		} else {
 	  			req.session.logged = true;
-  				req.session.id = result.insertId;
+  				req.session.id_user = result.insertId;
   				req.session.nombre = nombre;
   				req.session.email = email;
   				req.session.tipo = 0;

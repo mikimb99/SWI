@@ -18,7 +18,7 @@ router.post('/', function(req, res){
   		}
   		else if(data.length > 0) {
   			req.session.logged = true;
-  			req.session.id = data[0].id;
+  			req.session.id_user = data[0].id;
   			req.session.nombre = data[0].nombre;
   			req.session.email = email;
   			req.session.tipo = data[0].tipo;

@@ -1,8 +1,9 @@
-<html lang="en">
+<html lang="es">
 <%- include('head',{title:'Inicio', head_add: ''})%>
   <body>
 <%- include('alerta')%>
-<main class="text-center">
+<%- include('navbar', {user: true, username: nombre, position: 'index'}) %>
+<main>
 	Contenido pa registrados <%= nombre %>, cierra sesión en <a href="/logout">Este sitio</a>
 </main>
 </body>

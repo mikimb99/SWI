@@ -1,0 +1,33 @@
+<html lang="es">
+<%- include('head',{title:'Contacto', head_add: ''})%>
+  <body>
+<%- include('alerta')%>
+<%- include('navbar', {user: user, username: nombre, position: 'contacto'}) %>
+<main class="mt-4 container-fluid">
+	<div class="row">
+		<div class="col-md-6 col-12">
+			<img src="/img/soporte.jpg" alt="Support Image" class="img-fluid">
+		</div>
+		<div class="col-md-6 col-12">
+			<form method="POST" action="/contacto">
+<%if(!user) {%>
+				<div class="mb-3">
+        		    <label for="nombre-input" class="form-label">Nombre</label>
+            		<input class="form-control form-control-sm" id="nombre-input" name="nombre" type="text" placeholder="Nombre" required="true">
+            	</div>
+            	<div class="mb-3">
+            		<label for="email-input" class="form-label">Email de contacto</label>
+            		<input class="form-control form-control-sm" id="email-input" name="email" type="email" placeholder="example@example.com" required="true">
+            	</div>
+<%}%>
+            	<div class="mb-3">
+		            <label for="mensaje-input" class="form-label">Mensaje</label>
+    			    <textarea class="form-control" id="mensaje-input" name="msg" minlength="20" placeholder="Mensaje" rows="<%if(user) {%>15<%}else{%>10<%}%>" required="true"></textarea>
+    			</div>
+    			<button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+  		  	</form>
+		</div>
+	</div>
+</main>
+</body>
+</html>
