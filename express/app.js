@@ -37,10 +37,10 @@ app.use(function(req, res, next){
   delete req.session.error;
   delete req.session.info;
   res.locals.alerta = '';
-  if (danger) res.locals.alerta += '<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert" id="alert_node">'+danger+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-  if (msg) res.locals.alerta += '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert" id="alert_node">'+msg+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-  if (err) res.locals.alerta += '<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" id="alert_node">'+err+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-  if (info) res.locals.alerta += '<div class="alert alert-info alert-dismissible fade show mt-2" role="alert" id="alert_node">'+info+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  if (danger) res.locals.alerta += '<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">'+danger+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  if (msg) res.locals.alerta += '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">'+msg+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  if (err) res.locals.alerta += '<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">'+err+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  if (info) res.locals.alerta += '<div class="alert alert-info alert-dismissible fade show mt-2" role="alert">'+info+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
   next();
 });
 

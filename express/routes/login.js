@@ -13,7 +13,6 @@ router.post('/', function(req, res){
   if(email && pass) {
   	db.query("SELECT id, nombre, tipo FROM users WHERE email= ? AND password = SHA2(?, 256);", [email, pass], (err, data, campos) => {
   		if(err) {
-  			console.log(err);
   			req.session.error = "<strong>¡Error fatal con la base de datos!</strong> CODE: "+err.code;
   			res.redirect('back');
   		}
