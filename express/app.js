@@ -3,9 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
+var registroRouter = require('./routes/registro');
 
 var app = express();
 
@@ -18,9 +21,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  resave: false,
+  saveUnitialized: false,
+  secret: 'm83fxFA_hJ7pngX'
+}));
+app.use(function(req, res, next){
+  let err = req.session.error;
+  let msg = req.session.success;
+  delete req.session.error;
+  delete req.session.success;
+  res.locals.messages = '';
+  if (err) res.locals.messages += '<p>' + err + '</p>';
+  if (msg) res.locals.messages += '<p>' + msg + '</p>';
+  next();
+});
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter)
+app.use('/registro', registroRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
