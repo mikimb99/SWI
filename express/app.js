@@ -31,9 +31,9 @@ app.use(function(req, res, next){
   let msg = req.session.success;
   delete req.session.error;
   delete req.session.success;
-  res.locals.messages = '';
-  if (err) res.locals.messages += '<p>' + err + '</p>';
-  if (msg) res.locals.messages += '<p>' + msg + '</p>';
+  res.locals.alerta = '';
+  if (err) res.locals.alerta += '<div class="alert alert-warning mt-2" role="alert" id="alert_node">'+err+'</div>';
+  if (msg) res.locals.alerta += '<div class="alert alert-success mt-2" role="alert" id="alert_node">'+msd+'</div>';
   next();
 });
 

@@ -7,7 +7,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-  username = req.body.username;
+  email = req.body.email;
+  pass = req.body.pass;
+  req.session.error = 'notImplementedYet';
+  res.redirect('back');
 });
 
 module.exports = router;
