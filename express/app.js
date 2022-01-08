@@ -137,8 +137,8 @@ var listener = io.listen(server);
 listener.sockets.on('connection',function(socket){  
   socket.on('partido_update', function(data){  
       s = socket.handshake.session;
-      console.log(data)
-       io.emit('data_update',data);  
+      //AQUI VA EL CODIGO QUE GESTIONA LOS UPDATED DE LOS PARTIDOS
+       io.emit('data_update',data);  //AQUI SE ENVIA LA RESPUESTA A TO CRISTO
      });  
   });  
 
