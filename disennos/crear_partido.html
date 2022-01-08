@@ -1,13 +1,3 @@
-<html lang="es">
-<%- include('head',{title:'Inicio', head_add: ''})%>
-  <body>
-<%- include('alerta')%>
-<%- include('navbar', {user: true, username: nombre, position: 'index'}) %>
-<main>
-	Contenido pa registrados <%= nombre %>, cierra sesión en <a href="/logout">Este sitio</a>
-</main>
-
-
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -46,8 +36,3 @@
       </div>
     </div>
   </div>
-</body>
-<script type="text/javascript">
-	const socket = io();
-</script>
-</html>
