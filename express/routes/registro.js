@@ -10,7 +10,7 @@ router.post('/', function(req, res){
   nombre = req.body.name;
   email = req.body.email;
   pass = req.body.pass;
-  req.session.error = 'notImplementedYet';
+  req.session.danger = 'notImplementedYet';
   res.redirect('back');
 });
 

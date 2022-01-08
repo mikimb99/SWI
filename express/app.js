@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mysql = require('mysql');
 const session = require('express-session');
 
 var indexRouter = require('./routes/index');
@@ -27,14 +28,30 @@ app.use(session({
   secret: 'm83fxFA_hJ7pngX'
 }));
 app.use(function(req, res, next){
-  let err = req.session.error;
+  let danger = req.session.danger;
   let msg = req.session.success;
-  delete req.session.error;
+  let err = req.session.error;
+  let info = req.session.info;
+  delete req.session.danger;
   delete req.session.success;
+  delete req.session.error;
+  delete req.session.info;
   res.locals.alerta = '';
-  if (err) res.locals.alerta += '<div class="alert alert-warning mt-2" role="alert" id="alert_node">'+err+'</div>';
-  if (msg) res.locals.alerta += '<div class="alert alert-success mt-2" role="alert" id="alert_node">'+msd+'</div>';
+  if (danger) res.locals.alerta += '<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert" id="alert_node">'+danger+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  if (msg) res.locals.alerta += '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert" id="alert_node">'+msg+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  if (err) res.locals.alerta += '<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" id="alert_node">'+err+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  if (info) res.locals.alerta += '<div class="alert alert-info alert-dismissible fade show mt-2" role="alert" id="alert_node">'+info+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
   next();
+});
+
+
+
+
+db = mysql.createConnection({
+  host     : 'isw.tni.com.es',
+  user     : 'web_user',
+  password : 'm83fxFA_hJ7pngX',
+  database : 'sw1'
 });
 
 
