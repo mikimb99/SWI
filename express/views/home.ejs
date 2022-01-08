@@ -6,46 +6,6 @@
 <main>
 	Contenido pa registrados <%= nombre %>, cierra sesión en <a href="/logout">Este sitio</a>
 </main>
-
-
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Crear partido</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="/partidos/add" id="form-add-partido">
-        	<div class="mb-3">
-  				<label for="fecha-input" class="form-label">Fecha</label>
-  				<input type="datetime-local" class="form-control" name="fecha" id="fecha-input" required="true">
-			</div>
-			<div class="mb-3">
-  				<label for="local-input" class="form-label">Equipo Local</label>
-  				<select class="form-control selectpicker" id="local-input" data-live-search="true" data-style="btn-secondary" required="true">
-  					<option selected disabled="true">Seleccione un equipo</option>
-					  <option value="1">Nombres 1</option>
-					  <option value="2">Nombres 2</option>
-  				</select>
-			</div>
-			<div class="mb-3">
-  				<label for="visit-input" class="form-label">Equipo Visitante</label>
-  				<select class="form-control selectpicker" id="visit-input" data-live-search="true"  data-style="btn-secondary" required="true">
-  					<option selected disabled="true">Seleccione un equipo</option>
-					  <option value="1">Nombres 1</option>
-					  <option value="2">Nombres 2</option>
-  				</select>
-			</div>
-
-			<div id="map"></div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" onclick="$('form-add-partido').submit();" class="btn btn-primary">Crear partido</button>
-      </div>
-    </div>
-  </div>
 </body>
 <script type="text/javascript">
 	const socket = io();

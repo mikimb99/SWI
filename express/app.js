@@ -11,6 +11,8 @@ var usersRouter = require('./routes/users');
 var contactoRouter = require('./routes/contacto');
 var loginRouter = require('./routes/login');
 var registroRouter = require('./routes/registro');
+var partidosRouter = require('./routes/partidos');
+var equiposRouter = require('./routes/equipos');
 var sessionStore = new session.MemoryStore();
 
 var app = express();
@@ -70,6 +72,8 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/registro', registroRouter);
 app.use('/contacto', contactoRouter);
+app.use('/partidos', partidosRouter);
+app.use('/equipos', equiposRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

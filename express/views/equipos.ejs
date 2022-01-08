@@ -1,0 +1,111 @@
+<html lang="es">
+<%- include('head',{title:'Partidos', head_add: ''})%>
+  <body>
+<%- include('alerta')%>
+<%- include('navbar', {user: true, username: nombre, position: 'equipos'}) %>
+<main>
+	<!--CREAR EQUIPO-->
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear equipo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/partidos/add" id="form-add-equipo">
+          <div class="mb-3">
+          <label for="nombre-input" class="form-label">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="nombre-input" required="true">
+      </div>
+
+      <div id="map"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" onclick="$('form-add-equipo').submit();" class="btn btn-primary">Crear equipo</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- UNIRSE A EQUIPO VERIFICACIÓN -->
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Unirse a equipo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Esta seguro de que desea unirse al equipo <span id="modal-unirse-equipo-nombre">$NOMBRE_EQUIPO</span></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success">Unirse al equipo</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ABANDONAR EQUIPO VERIFICACION -->
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Abandonar equipo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Esta seguro de que desea abandonar el equipo <span id="modal-unirse-equipo-nombre">$NOMBRE_EQUIPO</span></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger">Abandonar equipo</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- VER EQUIPO -->
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Equipo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="mb-3">
+          <label for="nombre-input" class="form-label">Nombre</label>
+          <input disabled="true" type="text" class="form-control" name="nombre" id="nombre-input" required="true">
+      </div>
+      <div class="mb-3" id="map"></div>
+
+      <div>
+        <div class="h5">Jugadores</div>
+        <ul class="list-group">
+      <li class="list-group-item">An item</li>
+      <li class="list-group-item">A second item</li>
+      <li class="list-group-item">A third item</li>
+      <li class="list-group-item">A fourth item</li>
+      <li class="list-group-item">And a fifth one</li>
+      <li class="list-group-item">An item</li>
+
+    </ul>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" onclick="$('form-add-equipo').submit();" class="btn btn-primary">Unirse/Abandonar Equipo</button>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+<script type="text/javascript">
+	const socket = io();
+</script>
+</html>
