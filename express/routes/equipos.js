@@ -6,8 +6,8 @@ router.get('/', function(req, res, next) {
 	if(req.session.logged) {
 		res.render('equipos', {nombre: req.session.nombre});
 	} else {
-  		req.session.danger = "NotImplementedYet";
-  		res.redirect("/");
+		req.session.danger = "Para acceder a la página debe estar logueado";
+  		res.redirect("/login");
   	}
 });
 
