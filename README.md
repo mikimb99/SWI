@@ -10,4 +10,4 @@ node bin/www
 ```
 
 ## Ejecución del servidor 
-- Una vez desplegado el servidor, desde un navegador abrir el siguiente [enlace](127.0.0.1:3000)
+- Una vez desplegado el servidor, desde un navegador abrir el siguiente [enlace](http://127.0.0.1:3000)
