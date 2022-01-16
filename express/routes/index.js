@@ -6,6 +6,7 @@ var data2
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	if(req.session.logged){
+		var name = req.session.nombre;
 		db.query("SELECT * FROM partidos_completo WHERE estado=0; SELECT * FROM partidos_completo WHERE TIMESTAMPDIFF(MINUTE, fecha, now()) > 0 AND TIMESTAMPDIFF(MINUTE, fecha, now()) < 130; select * from partidos_completo LIMIT 1;", [1, 2, 3], (err, data, campos) => {
             if(err) {
                 req.session.error = "<strong>¡Error fatal con la base de datos!</strong> CODE: "+err.code;
