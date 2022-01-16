@@ -95,7 +95,7 @@
                 </div>
                 <div class="text-center">
                   <span class="h5 border-1 border-dark">
-                    <%= userUltimoPartido.fecha %>
+                    <%= userUltimoPartido.fecha.toLocaleDateString('es-ES') %> <br>
                     <%= userUltimoPartido.lugar %>
                   </span>
                 </div>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="text-center">
                   <span class="h5 border-1 border-dark">
-                    <%= userProximoPartido.fecha %>
+                    <%= userProximoPartido.fecha.toLocaleDateString('es-ES') %> <br>
                     <%= userProximoPartido.lugar %>
                   </span>
                 </div>
