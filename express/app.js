@@ -139,18 +139,79 @@ io.use(function(socket, next) {
     }
 });
 
-
-function validate_permission(user_id, partido_id) {
-  db.query("SELECT partidos.creator_id=? AS valido FROM partidos WHERE partidos.id=? and estado <2;", [user_id, partido_id], (err, data, campos) => {
-    if(err) throw Error(err);
-    return data[0].valido;
+ function validate_permission(user_id, partido_id, orden, socket, session) {
+  db.query("SELECT creator_id=? AS valido, partidos_completo.* FROM partidos_completo WHERE id=? and estado <2;", [user_id, partido_id], (err, data, campos) => {
+    if(err) socket.emit('error', 'Error con la base de datos');
+    else {
+        if(data[0].valido) {
+          update_partido(partido_id, orden, data[0], socket);
+        } else {
+          socket.emit('error', 'No tienes permisos suficientes');
+        }
+      }
   });
 }
 
-function partido_update(partido) {
-  io.emit('resultado_update', partido);
+function update_partido(partido_id, orden, partido, socket) {
+  let tmp = {
+    id : partido_id,
+    local_marcador: partido.local_marcador,
+    visitante_marcador: partido.visitante_marcador,
+    local: partido.local_nombre,
+    visitante: partido.visitante_nombre,
+    estado: partido.estado,
+    fecha: partido.fecha,
+    lugar: partido.lugar
+  };
+  switch(orden){
+    case 'GOL_LOCAL':
+        tmp.local_marcador = tmp.local_marcador+1;
+        if(tmp.estado === 1) {
+          tmp.evento = "resultado_update";
+          end_update_partido(tmp, socket);
+        } else {
+          socket.emit("error", "No puedes modificar el marcador en un partido sin empezar o ya terminado");
+        }
+        break;
+    case 'GOL_VISITANTE':
+        tmp.visitante_marcador = tmp.visitante_marcador+1;
+        if(tmp.estado === 1) {
+          tmp.evento = "resultado_update";
+          end_update_partido(tmp, socket);
+        } else {
+          socket.emit("error", "No puedes modificar el marcador en un partido sin empezar o ya terminado");
+        }
+        break;
+    case 'START':
+        if(tmp.estado === 0) {
+          tmp.estado = 1;
+          tmp.evento = "partido_iniciado";
+          end_update_partido(tmp, socket);
+        } else socket.emit("error", "El partido ya ha sido inicado.");
+        break;
+    case 'END':
+        if(tmp.estado === 1) {
+          tmp.estado = 2;
+          tmp.evento = "partido_finalizado";
+          end_update_partido(tmp, socket);
+        } else socket.emit("error", "No puedes finalizar un partido que no ha empezado o ya ha terminado");
+      break;
+    default:
+        socket.emit("error", "No ha sido posible resolver su petición");
+  }
 }
 
+function end_update_partido(partido, emisor) {
+  db.query("UPDATE `partidos` SET `local_marcador`=?,`visitante_marcador`=?, `estado`=? WHERE id=?;", [partido.local_marcador, partido.visitante_marcador, partido.estado, partido.id], (err, data, x) => {
+    if(err) {
+      console.log(err);
+      emisor.emit("error", "Se ha producido un error fatal con la base de datos.");
+    } else {
+      emisor.emit("ACK");
+      io.emit(partido.evento, partido);
+    }
+  });
+}
 
 var listener = io.listen(server);
 listener.sockets.on('connection',function(socket){ 
@@ -158,14 +219,10 @@ listener.sockets.on('connection',function(socket){
     s = socket.handshake.session;
     socket.emit('start', s.logged, s.id_user);
   });
-  socket.on('partido_update', function(partido){  
+  socket.on('partido_update', function(partido_id, orden){
       s = socket.handshake.session;
-      try {
-        if(validate_permission(s.id_user, partido.id)) update_partido(partido);
-        else socket.emit('error', 'No tienes permisos suficientes');
-      } catch (err) {
-        socket.emit('error', 'Error con la base de datos');
-      }
+      if(s.logged) validate_permission(s.id_user, partido_id, orden, socket, s);
+      else socket.emit("error", "No tienes permisos suficientes.");
      });  
   }); 
 

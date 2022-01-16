@@ -15,26 +15,25 @@
       </div>
       <div class="modal-body">
         <% for (let iCount=0; iCount <partidosDirecto.length; iCount++) { %>
-          <div class="row">
+          <div class="row partido_directo mb-3" partido_id="<%=partidosDirecto[iCount].id%>">
             <div class="col-6 h1 border-end border-2 border-dark">
               <%= partidosDirecto[iCount].local_nombre %>
             </div>
             <div class="col-6 h1 text-end">
               <%= partidosDirecto[iCount].visitante_nombre %>
             </div>
-          </div>
             <div class="col-12 resultado text-center">
               <span class="h1 border-1 border-dark">
-                <%= partidosDirecto[iCount].local_marcador %>-<%= partidosDirecto[iCount].visitante_marcador %> 
+                <span class="local-marcador h1"><%= partidosDirecto[iCount].local_marcador %></span>-<span class="visitante-marcador h1"><%= partidosDirecto[iCount].visitante_marcador %></span>
               </span>
             </div>
             <div class="text-center">
               <span class="h5 border-1 border-dark">
                 <%= partidosDirecto[iCount].lugar %>
               </span>
+          </div>
               </div>
             <% }%>
-          </div>
       </div>
     </div>
   </div>
@@ -47,14 +46,13 @@
       </div>
       <div class="modal-body">
         <% for (let iCount=0; iCount <partidosProximos.length; iCount++) { %>
-          <div class="row">
+          <div class="row partido_futuro" partido_id="<%=partidosProximos[iCount].id %>">
             <div class="col-6 h1 border-end border-2 border-dark">
               <%= partidosProximos[iCount].local_nombre %>
             </div>
             <div class="col-6 h1 text-end">
               <%= partidosProximos[iCount].visitante_nombre %>
             </div>
-          </div>
             <div class="col-12 text-center">
               <span class="h1 border-1 border-dark">
                 <%= partidosProximos[iCount].local_marcador %>-<%= partidosProximos[iCount].visitante_marcador %> 
@@ -66,8 +64,8 @@
                 <%= partidosProximos[iCount].lugar%> <br>
               </span>
             </div>
-            <% }%>
           </div>
+            <% }%>
       </div>
     </div>
   </div>
@@ -76,7 +74,7 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Mi último partido finalizado</h5>
+            <h5 class="modal-title">Último partido finalizado</h5>
           </div>
           <div class="modal-body">
             <%if(userUltimoPartido) {%>
