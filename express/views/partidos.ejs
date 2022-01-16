@@ -41,44 +41,104 @@
     </div>
   </div>
 
+      <!-- PARTIDOS USUARIO -->
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Mis partidos</h5>
+          </div>
+          <div class="modal-body">
+            <% for (let iCount=0; iCount <partidoUsuario.length; iCount++) { %>
+              <div class="row">
+                <div class="col-6 h1 border-end border-2 border-dark">
+                  <%= partidoUsuario[iCount].local_nombre %>
+                </div>
+                <div class="col-6 h1 text-end">
+                  <%= partidoUsuario[iCount].visitante_nombre %>
+                </div>
+              </div>
+                <div class="col-12 text-center">
+                  <span class="h1 border-1 border-dark">
+                    <%= partidoUsuario[iCount].local_marcador %>-<%= partidoUsuario[iCount].visitante_marcador %> 
+                  </span>
+                </div>
+                <div class="text-center">
+                  <span class="h5 border-1 border-dark">
+                    <%= partidoUsuario[iCount].fecha %>
+                    <%= partidoUsuario[iCount].lugar %>
+                  </span>
+                </div>
+                <% }%>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.open('partidos', '_self');">Ver todos mis partidos finalizados</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    
+     <!-- PROXIMOS PARTIDO USUARIO -->
+	 <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Mis próximos partido</h5>
+          </div>
+          <div class="modal-body">
+            <% for (let iCount=0; iCount <partidosProximos.length; iCount++) { %>
+              <div class="row">
+                <div class="col-6 h1 border-end border-2 border-dark">
+                  <%= partidosProximos[iCount].local_nombre %>
+                </div>
+                <div class="col-6 h1 text-end">
+                  <%= partidosProximos[iCount].visitante_nombre %>
+                </div>
+              </div>
+                <div class="col-12 text-center">
+                  <span class="h1 border-1 border-dark">
+                    <%= partidosProximos[iCount].local_marcador %>-<%= partidosProximos[iCount].visitante_marcador %> 
+                  </span>
+                </div>
+                <div class="text-center">
+                  <span class="h5 border-1 border-dark">
+                    <%= partidosProximos[iCount].fecha %>
+                    <%= partidosProximos[iCount].lugar %>
+                  </span>
+                </div>
+                <% }%>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.open('partidos', '_self');">Ver todos mis próximos partidos</button>
+              </div>
+          </div>
+        </div>
+      </div>
 
 <!-- CREAR PARTIDO -->
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Crear partido</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form method="POST" action="/partidos/add" id="form-add-partido">
         	<div class="mb-3">
   				<label for="fecha-input" class="form-label">Fecha</label>
   				<input type="datetime-local" class="form-control" name="fecha" id="fecha-input" required="true">
+          <label for="lugar-input" class="form-label">Lugar</label>
+          <input type="text" class="form-control" name="lugar" id="lugar-input" required="true">
+          <label for="local-input" class="form-label">Equipo Local</label>
+          <input type="text" class="form-control" name="lugar" id="local-input" required="true"><br>
+          <label for="visitante-input" class="form-label">Equipo Visitante</label>
+          <input type="text" class="form-control" name="lugar" id="visitante-input" required="true"><br>
+		    	</div>
 			</div>
-			<div class="mb-3">
-  				<label for="local-input" class="form-label">Equipo Local</label>
-  				<select class="form-control selectpicker" id="local-input" data-live-search="true" data-style="btn-secondary" required="true">
-  					<option selected disabled="true">Seleccione un equipo</option>
-					  <option value="1">Nombres 1</option>
-					  <option value="2">Nombres 2</option>
-  				</select>
-			</div>
-			<div class="mb-3">
-  				<label for="visit-input" class="form-label">Equipo Visitante</label>
-  				<select class="form-control selectpicker" id="visit-input" data-live-search="true"  data-style="btn-secondary" required="true">
-  					<option selected disabled="true">Seleccione un equipo</option>
-					  <option value="1">Nombres 1</option>
-					  <option value="2">Nombres 2</option>
-  				</select>
-			</div>
-
-			<div id="map"></div>
+    
         </form>
+        <div class="modal-footer">
+          <button type="button" onclick="$('form-add-partido').submit();" class="btn btn-primary">Crear partido</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" onclick="$('form-add-partido').submit();" class="btn btn-primary">Crear partido</button>
-      </div>
+      
     </div>
   </div>
 

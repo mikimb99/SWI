@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	if(req.session.logged) {
-		db.query("SELECT nombre FROM equipos;", [1], (err, data, campos) => {
+		db.query("SELECT id, nombre FROM equipos;", [1], (err, data, campos) => {
             if(err) {
                 req.session.error = "<strong>¡Error fatal con la base de datos!</strong> CODE: "+err.code;
                 res.redirect('back');

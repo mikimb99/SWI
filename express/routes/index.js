@@ -36,7 +36,7 @@ function general_query(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	if(req.session.logged) next();
+if(req.session.logged) next();
 	else next('route');
 }, logged_function
 );
