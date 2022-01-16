@@ -14,6 +14,18 @@ socket.on('start', (logged, myid) =>{
 	socket_data.user_id = myid;
 });
 
+function show_alert_socket_ok() {
+	clear_alerts(() =>{
+		$("#alert-zone").html('<div class="alert alert-success alert-dismissible fade show mt-2" style="display: none;" role="alert" id="socket-ok-alert">Cambios realizados correctamente.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').promise().done(() =>{
+			$("#socket-ok-alert").slideDown(500);
+		});
+	});
+}
+
+socket.on("ACK", () =>{
+		show_alert_socket_ok();
+});
+
 socket.on('error', (error) => {
 	alert(error);
 });
