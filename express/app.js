@@ -139,14 +139,35 @@ io.use(function(socket, next) {
     }
 });
 
+
+function validate_permission(user_id, partido_id) {
+  db.query("SELECT partidos.creator_id=? AS valido FROM partidos WHERE partidos.id=? and estado <2;", [user_id, partido_id], (err, data, campos) => {
+    if(err) throw Error(err);
+    return data[0].valido;
+  });
+}
+
+function partido_update(partido) {
+  io.emit('resultado_update', partido);
+}
+
+
 var listener = io.listen(server);
-listener.sockets.on('connection',function(socket){  
-  socket.on('partido_update', function(data){  
+listener.sockets.on('connection',function(socket){ 
+  socket.on('whoiam', () => {
+    s = socket.handshake.session;
+    socket.emit('start', s.logged, s.id_user);
+  });
+  socket.on('partido_update', function(partido){  
       s = socket.handshake.session;
-      //AQUI VA EL CODIGO QUE GESTIONA LOS UPDATED DE LOS PARTIDOS
-       io.emit('data_update',data);  //AQUI SE ENVIA LA RESPUESTA A TO CRISTO
+      try {
+        if(validate_permission(s.id_user, partido.id)) update_partido(partido);
+        else socket.emit('error', 'No tienes permisos suficientes');
+      } catch (err) {
+        socket.emit('error', 'Error con la base de datos');
+      }
      });  
-  });  
+  }); 
 
 /**
  * Listen on provided port, on all network interfaces.

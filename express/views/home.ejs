@@ -1,8 +1,11 @@
 <html lang="es">
-<%- include('head',{title:'Inicio', head_add: ''})%>
+<%- include('head',{title:'Inicio', head_add: '   '})%>
   <body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts/socket_work.js"></script>
+    <script src='/scripts/home.js'></script>
 <%- include('alerta')%>
-<%- include('navbar', {user: true, username: nombre, position: 'index'}) %>
+<%- include('navbar', {user: nombre, position: 'index'}) %>
 <main>
   <!-- PARTIDOS EN DIRECTO -->
   <div class="modal-dialog modal-xl">
@@ -59,8 +62,8 @@
             </div>
             <div class="text-center">
               <span class="h5 border-1 border-dark">
-                <%= partidosProximos[iCount].fecha %> <br>
-                <%= partidosProximos[iCount].lugar %> <br>
+                <%= partidosProximos[iCount].fecha.toLocaleDateString('es-ES') %> <br>
+                <%= partidosProximos[iCount].lugar%> <br>
               </span>
             </div>
             <% }%>
@@ -68,7 +71,7 @@
       </div>
     </div>
   </div>
-
+    <%if (nombre){%>
       <!-- ÚLTIMO PARTIDO USUARIO -->
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -76,30 +79,32 @@
             <h5 class="modal-title">Último partido finalizado</h5>
           </div>
           <div class="modal-body">
-            <% for (let iCount=0; iCount <partidoUsuario.length; iCount++) { %>
+            <%if(userUltimoPartido) {%>
               <div class="row">
                 <div class="col-6 h1 border-end border-2 border-dark">
-                  <%= partidoUsuario[iCount].local_nombre %>
+                  <%= userUltimoPartido.local_nombre %>
                 </div>
                 <div class="col-6 h1 text-end">
-                  <%= partidoUsuario[iCount].visitante_nombre %>
+                  <%= userUltimoPartido.visitante_nombre %>
                 </div>
               </div>
                 <div class="col-12 text-center">
                   <span class="h1 border-1 border-dark">
-                    <%= partidoUsuario[iCount].local_marcador %>-<%= partidoUsuario[iCount].visitante_marcador %> 
+                    <%= userUltimoPartido.local_marcador %>-<%= userUltimoPartido.visitante_marcador %> 
                   </span>
                 </div>
                 <div class="text-center">
                   <span class="h5 border-1 border-dark">
-                    <%= partidoUsuario[iCount].fecha %>
-                    <%= partidoUsuario[iCount].lugar %>
+                    <%= userUltimoPartido.fecha %>
+                    <%= userUltimoPartido.lugar %>
                   </span>
                 </div>
-                <% }%>
+                <% } else {%>
+                <span class="h1">No has jugado ningún partido</span>
+                <%}%>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.open('partidos', '_self');">Ver todos mis partidos finalizados</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.open('partidos', '_self');" <%if(!userUltimoPartido) {%>disabled<%}%>>Ver todos mis partidos finalizados</button>
               </div>
           </div>
         </div>
@@ -112,38 +117,36 @@
             <h5 class="modal-title">Mi proximo partido</h5>
           </div>
           <div class="modal-body">
-            <% for (let iCount=0; iCount <partidoUsuario.length; iCount++) { %>
+            <%if(userProximoPartido) {%>
               <div class="row">
                 <div class="col-6 h1 border-end border-2 border-dark">
-                  <%= partidoUsuario[iCount].local_nombre %>
+                  <%= userProximoPartido.local_nombre %>
                 </div>
                 <div class="col-6 h1 text-end">
-                  <%= partidoUsuario[iCount].visitante_nombre %>
+                  <%= userProximoPartido.visitante_nombre %>
                 </div>
               </div>
                 <div class="col-12 text-center">
                   <span class="h1 border-1 border-dark">
-                    <%= partidoUsuario[iCount].local_marcador %>-<%= partidoUsuario[iCount].visitante_marcador %> 
+                    <%= userProximoPartido.local_marcador %>-<%= userProximoPartido.visitante_marcador %> 
                   </span>
                 </div>
                 <div class="text-center">
                   <span class="h5 border-1 border-dark">
-                    <%= partidoUsuario[iCount].fecha %>
-                    <%= partidoUsuario[iCount].lugar %>
+                    <%= userProximoPartido.fecha %>
+                    <%= userProximoPartido.lugar %>
                   </span>
                 </div>
-                <% }%>
+                <%} else {%>
+                <span class="h1">No tienes ningún partido</span>
+                <%}%>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.open('partidos', '_self');">Ver todos mis próximos partidos</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.open('partidos', '_self');" <%if(!userProximoPartido) {%>disabled<%}%>>Ver todos mis próximos partidos</button>
               </div>
           </div>
         </div>
-      </div>
-
+<%}%>
 </main>
 </body>
-<script type="text/javascript">
-	const socket = io();
-</script>
 </html>
