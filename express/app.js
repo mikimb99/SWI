@@ -64,7 +64,8 @@ db = mysql.createConnection({
   host     : 'isw.tni.com.es',
   user     : 'web_user',
   password : 'm83fxFA_hJ7pngX',
-  database : 'sw1'
+  database : 'sw1',
+  multipleStatements: true
 });
 
 
